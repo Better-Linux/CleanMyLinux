@@ -1,0 +1,1 @@
+export { GithubIcon as Github} from "./Github";
