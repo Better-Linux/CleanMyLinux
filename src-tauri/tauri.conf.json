@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "identifier": "com.betterlinux.cleanmylinux",
+  "mainBinaryName": "cleanmylinux",
+  "productName": "CleanMyLinux",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "width": 1200,
+        "height": 800,
+        "minWidth": 1200,
+        "minHeight": 800,
+        "decorations": false,
+        "transparent": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "deb",
+      "rpm"
+    ],
+    "publisher": "Better Linux",
+    "copyright": "Copyright © 2026 Better Linux",
+    "category": "Utility",
+    "shortDescription": "A premium system maintenance and optimization tool.",
+    "longDescription": "CleanMyLinux is a professional, high-performance system cleaning and optimization utility designed for modern Linux desktops. It helps you manage apps, clear system junk, and keep your desktop running smoothly with a beautiful.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
+    "linux": {
+      "deb": {
+        "files": {
+          "/usr/share/polkit-1/actions/com.betterlinux.cleanmylinux.policy": "../config/com.betterlinux.cleanmylinux.policy",
+          "/usr/bin/cleanmylinux-helper": "../scripts/cleanmylinux-helper.sh",
+          "/usr/share/applications/cleanmylinux.desktop": "../config/cleanmylinux.desktop"
+        }
+      },
+      "rpm": {
+        "files": {
+          "/usr/share/polkit-1/actions/com.betterlinux.cleanmylinux.policy": "../config/com.betterlinux.cleanmylinux.policy",
+          "/usr/bin/cleanmylinux-helper": "../scripts/cleanmylinux-helper.sh",
+          "/usr/share/applications/cleanmylinux.desktop": "../config/cleanmylinux.desktop"
+        }
+      }
+    }
+  }
+}
