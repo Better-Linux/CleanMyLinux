@@ -1,0 +1,32 @@
+[package]
+name = "CleanMyLinux"
+version = "1.0.0"
+description = "A premium, high performance system maintenance and optimization tool for Linux desktops."
+authors = ["Better Linux"]
+edition = "2021"
+repository = "https://github.com/better-linux/CleanMyLinux"
+homepage = "https://github.com/better-linux/CleanMyLinux"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "cleanmylinux_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-store = "2.0.0-rc"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+gtk = "0.18.2"
+rayon = "1"
+reqwest = { version = "0.12", features = ["blocking", "json"] }
