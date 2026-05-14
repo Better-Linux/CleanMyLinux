@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=CleanMyLinux
+GenericName=System Maintenance & Optimization
+Comment=Professional system cleaning and optimization utility for Linux.
+Exec=cleanmylinux
+Icon=cleanmylinux
+Terminal=false
+Categories=System;Utility;Security;
+Keywords=clean;maintenance;performance;optimization;junk;system;apps;uninstall;
+StartupNotify=true
+StartupWMClass=cleanmylinux
