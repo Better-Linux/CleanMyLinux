@@ -16,6 +16,27 @@ CleanMyLinux is a premium system maintenance and application management tool des
 
 ---
 
+## Supported Distributions
+
+CleanMyLinux is natively compiled and supports the following Linux distributions. Due to modern C library dependencies (GLIBC baseline), older system versions are not supported.
+
+| Distribution | Minimum Supported Version |
+| :--- | :--- |
+| **Ubuntu** | `22.04 LTS` (Jammy Jellyfish) or newer |
+| **Debian** | `12` (Bookworm) or newer |
+| **Fedora** | `40` or newer |
+| **Arch Linux** | `latest` (Not tested yet) |
+| **Linux Mint** | `21` or newer |
+| **Pop!_OS** | `22.04 LTS` or newer |
+| **Zorin OS** | `17` or newer |
+| **Parrot OS** | `6` or newer |
+| **Elementary OS** | `7` (Horus) or newer |
+
+> [!WARNING]
+> **GLIBC Version Constraint:** If your distribution has a GLIBC version older than `2.39` (e.g. Ubuntu 20.04, Debian 11, CentOS 8), the pre-compiled binary will fail to launch. For older platforms, we recommend compiling the application directly from source (see *Build and Run* below).
+
+---
+
 ## Key Features
 
 ### Safe Application Uninstaller

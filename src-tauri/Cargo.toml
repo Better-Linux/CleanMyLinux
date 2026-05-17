@@ -1,6 +1,6 @@
 [package]
 name = "CleanMyLinux"
-version = "1.0.0"
+version = "1.0.0-beta.1"
 description = "A premium, high performance system maintenance and optimization tool for Linux desktops."
 authors = ["Better Linux"]
 edition = "2021"
@@ -30,3 +30,11 @@ base64 = "0.22"
 gtk = "0.18.2"
 rayon = "1"
 reqwest = { version = "0.12", features = ["blocking", "json"] }
+
+[profile.release]
+opt-level = "z"       # Optimize for size
+lto = true            # Enable Link Time Optimization (LTO)
+codegen-units = 1     # Reduce parallel codegen units to increase optimizations
+panic = "abort"       # Remove panic unwinding to save size
+strip = true          # Strip debugging symbols natively during compilation
+
