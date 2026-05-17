@@ -17,6 +17,7 @@ interface AppManagerStore {
   updateCount: number;
   updates: UpdateItem[];
   installedApps: AppInfo[];
+  updatesLoading: boolean;
   handleScan: () => Promise<void>;
   setScanState: (state: "initial" | "scanning" | "results") => void;
 
@@ -56,17 +57,14 @@ export const useAppManagerStore = create<AppManagerStore>((set, get) => ({
   updateCount: 0,
   updates: [],
   installedApps: [],
+  updatesLoading: false,
 
   handleScan: async () => {
-    set({ scanState: "scanning" });
-    try {
-      const [appsResult, updatesResult] = await Promise.all([
-        invoke<SystemApps>("get_installed_apps"),
-        invoke<UpdateInfo>("get_available_updates"),
-      ]);
+    set({ scanState: "scanning", updatesLoading: true });
+
+    // 1. Fire-and-forget: Trigger updates checking instantly in the background
+    invoke<UpdateInfo>("get_available_updates").then((updatesResult) => {
       set({
-        appCount: appsResult.total_count,
-        installedApps: appsResult.apps,
         updateCount: updatesResult.total_count,
         updates: updatesResult.updates,
         selectedPackageIds: updatesResult.updates
@@ -78,9 +76,24 @@ export const useAppManagerStore = create<AppManagerStore>((set, get) => ({
           icon: u.icon,
           status: "waiting",
         })),
+        updatesLoading: false,
       });
-    } finally {
-      set({ scanState: "results" });
+    }).catch((err) => {
+      console.error("Failed to fetch system updates in background:", err);
+      set({ updatesLoading: false });
+    });
+
+    // 2. Fetch installed apps and transition instantly (takes <0.1s)
+    try {
+      const appsResult = await invoke<SystemApps>("get_installed_apps");
+      set({
+        appCount: appsResult.total_count,
+        installedApps: appsResult.apps,
+        scanState: "results",
+      });
+    } catch (err) {
+      console.error("Application scan failed:", err);
+      set({ scanState: "results", updatesLoading: false });
     }
   },
 
