@@ -34,3 +34,6 @@ dist-ssr
 venv
 __pycache__/
 *.pyc
+
+# Local Package Builds
+/build

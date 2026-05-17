@@ -28,7 +28,8 @@
     "active": true,
     "targets": [
       "deb",
-      "rpm"
+      "rpm",
+      "appimage"
     ],
     "publisher": "Better Linux",
     "copyright": "Copyright © 2026 Better Linux",
@@ -55,7 +56,15 @@
           "/usr/bin/cleanmylinux-helper": "../scripts/cleanmylinux-helper.sh",
           "/usr/share/applications/cleanmylinux.desktop": "../config/cleanmylinux.desktop"
         }
+      },
+      "appimage": {
+        "files": {
+          "/usr/share/polkit-1/actions/com.betterlinux.cleanmylinux.policy": "../config/com.betterlinux.cleanmylinux.policy",
+          "/usr/bin/cleanmylinux-helper": "../scripts/cleanmylinux-helper.sh",
+          "/usr/share/applications/cleanmylinux.desktop": "../config/cleanmylinux.desktop"
+        }
       }
+
     }
   }
 }
