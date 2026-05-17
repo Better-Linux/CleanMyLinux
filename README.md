@@ -91,4 +91,3 @@ For developers, contributors, and systems engineers interested in the mathematic
 **It's time to evolve Linux.**
 
 *Crafted with passion by the Better Linux Community.*
-
