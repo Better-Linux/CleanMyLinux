@@ -1,0 +1,93 @@
+---
+import "../globals.css";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- SEO Best Practices -->
+		<title>CleanMyLinux | Premium System Maintenance App</title>
+		<link rel="canonical" href={canonicalURL.href} />
+		<meta name="description" content="CleanMyLinux is a gorgeous, safe, and lightning-fast optimization utility for Linux. Discover unused apps, uninstall package remnants, and speed up updates with machine learning tracking." />
+		<meta name="keywords" content="linux system cleaner, clean my linux, flatpak uninstaller, snap uninstaller, linux package manager updates, safe deb uninstaller, arch linux cache cleaner" />
+		<meta name="robots" content="index, follow" />
+		
+		<!-- Icons & Theme -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<meta name="theme-color" content="#080809" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- OpenGraph Meta Tags (Product Hunt / Socials) -->
+		<meta property="og:title" content="CleanMyLinux | Premium System Maintenance App" />
+		<meta property="og:description" content="The ultimate, playfulness inspired system maintenance utility designed exclusively for modern Linux desktops. Clean caches, reset app memory, and streamline updates safely." />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="/thumbnail.png" />
+		<meta property="og:url" content={canonicalURL.href} />
+		<meta property="og:site_name" content="CleanMyLinux" />
+
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="CleanMyLinux | Premium System Maintenance App" />
+		<meta name="twitter:description" content="A beautiful system maintenance and safe application uninstaller designed for Linux desktop environments." />
+		<meta name="twitter:url" content={canonicalURL.href} />
+		<meta name="twitter:image" content="/thumbnail.png" />
+
+		<!-- Google Fonts - Syne (Distinctive display font) & Plus Jakarta Sans (Elegant body copy) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+	</head>
+	<body class="bg-[#080809] text-[#E4E4E7] min-h-screen relative overflow-x-hidden selection:bg-[#EA580C]/30 selection:text-[#FDBA74] antialiased font-sans">
+		
+		<!-- Ambient Warm Orange & Cyber Charcoal Lighting Glows -->
+		<div class="fixed inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen overflow-hidden">
+			<!-- Soft top orange glow matching the warm Tux silhouettes -->
+			<div class="absolute top-[-30%] left-[20%] w-[60%] h-[70%] rounded-full bg-[#EA580C]/10 blur-[180px]" />
+			<div class="absolute top-[10%] right-[-10%] w-[45%] h-[60%] rounded-full bg-[#FDBA74]/5 blur-[160px]" />
+			<div class="absolute bottom-[-20%] left-[-10%] w-[55%] h-[70%] rounded-full bg-[#EA580C]/8 blur-[180px]" />
+		</div>
+
+		<!-- Subtle technical grid structure -->
+		<div class="fixed inset-0 z-0 pointer-events-none opacity-[0.02] grid-grid" style="background-size: 50px 50px; background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);" />
+
+		<!-- Premium custom grain texture overlay for tactile physical depth -->
+		<div class="fixed inset-0 z-1 pointer-events-none opacity-[0.015]" style='background-image: url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.75%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' />
+
+		<div class="relative z-10 w-full min-h-screen flex flex-col overflow-hidden">
+			<slot />
+		</div>
+
+		<!-- Inertial Smooth Scrolling Initialization Script -->
+		<script>
+			import Lenis from 'lenis';
+			import { gsap } from 'gsap';
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+			gsap.registerPlugin(ScrollTrigger);
+
+			const lenis = new Lenis({
+				duration: 1.2,
+				easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+			});
+
+			function raf(time: number) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+
+			// Connect Lenis to GSAP ScrollTrigger
+			lenis.on('scroll', ScrollTrigger.update);
+			gsap.ticker.add((time)=>{
+				lenis.raf(time * 1000)
+			});
+			gsap.ticker.lagSmoothing(0);
+		</script>
+	</body>
+</html>

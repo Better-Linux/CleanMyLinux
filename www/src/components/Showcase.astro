@@ -1,0 +1,48 @@
+<section id="safety-features" class="relative z-10 max-w-7xl mx-auto px-6 py-36 flex justify-center items-center">
+  
+  <!-- Ambient Warm Backlights -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-212.5 h-137.5 bg-linear-to-tr from-white/3 to-[#EA580C]/4 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+  <div class="relative z-10 w-full max-w-5xl perspective-container">
+    
+    <!-- Whitish Transparent Glassmorphic Morph Panel (Matching Sidebar Active Style) -->
+    <div id="video-window-container" class="w-full relative rounded-3xl border border-white/10 border-t-white/25 bg-linear-to-b from-white/10 to-white/5 backdrop-blur-3xl shadow-[0_40px_110px_rgba(0,0,0,0.65),inset_0_1px_2px_rgba(255,255,255,0.15)] overflow-hidden group p-3">
+      
+      <!-- Inner Glossy Glass Border Highlights -->
+      <div class="absolute inset-0 border border-white/10 rounded-3xl pointer-events-none z-30 group-hover:border-white/15 transition-colors duration-700"></div>
+      
+      <!-- Shimmering Light Glide Overlay on Hover -->
+      <div class="absolute inset-0 bg-linear-to-tr from-transparent via-white/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"></div>
+
+      <!-- Video Wrapper cropped to exact 1200x800 (3:2) Aspect Ratio -->
+      <div class="w-full aspect-3/2 relative overflow-hidden rounded-2xl bg-black/20">
+        <video 
+          id="demo-video"
+          src="/video.mp4" 
+          autoplay 
+          muted 
+          loop 
+          playsinline 
+          class="absolute top-0 left-1/2 -translate-x-1/2 w-[118.6%] h-full max-w-none object-cover select-none pointer-events-none"
+        ></video>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #safety-features {
+    perspective: 1600px;
+    transform-style: preserve-3d;
+  }
+  .perspective-container {
+    perspective: 1600px;
+    transform-style: preserve-3d;
+  }
+  #video-window-container {
+    transform-style: preserve-3d;
+    will-change: transform, opacity, filter;
+  }
+</style>

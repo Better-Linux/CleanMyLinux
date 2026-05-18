@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Showcase from '../components/Showcase.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <!-- Composition of Isolated Modular Brand Components -->
+  <Header />
+  
+  <main class="w-full grow relative z-10">
+    <Hero />
+    <Showcase />
+  </main>
+  
+  <Footer />
+</Layout>
+
+<!-- Orchestrated GSAP Entry Timeline reveals & Scroll Animations -->
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. Initial Page Load entry staggered reveals
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 }});
+  
+  tl.to('#nav-header', { opacity: 1, y: 0, duration: 1 })
+    .to('#hero-tag', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+    .to('#hero-title', { opacity: 1, y: 0, duration: 1.2 }, '-=0.8')
+    .to('#hero-desc', { opacity: 1, y: 0, duration: 1.2 }, '-=1.0')
+    .to('#hero-ctas', { opacity: 1, y: 0, duration: 1 }, '-=1.0');
+
+  // 2. Majestic Reverse 3D Perspective Tilt & Scale-Down on Scroll
+  gsap.fromTo('#video-window-container', 
+    {
+      transformPerspective: 1200,
+      rotateX: 42,
+      scale: 1.22,
+      transformOrigin: 'top center',
+      filter: 'brightness(0.8)',
+    },
+    {
+      scrollTrigger: {
+        trigger: '#safety-features',
+        start: 'top 95%',
+        end: 'top 15%',
+        scrub: 1.5,
+      },
+      transformPerspective: 1200,
+      rotateX: 0,
+      scale: 1,
+      filter: 'brightness(1)',
+      ease: 'none',
+    }
+  );
+
+  // Section entry fade reveal
+  gsap.to('#safety-features', {
+    scrollTrigger: {
+      trigger: '#safety-features',
+      start: 'top 85%',
+      toggleActions: 'play none none none'
+    },
+    opacity: 1,
+    y: 0,
+    duration: 1.2,
+    ease: 'power3.out'
+  });
+
+  // 3. Play/Pause Video Dynamically based on Viewport visibility (IntersectionObserver Performance Optimization)
+  const videoElement = document.querySelector('#demo-video') as HTMLVideoElement | null;
+  if (videoElement) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          videoElement.play().catch(() => {});
+        } else {
+          videoElement.pause();
+        }
+      });
+    }, {
+      threshold: 0.05 // Starts playing/pausing as soon as 5% of the video is visible
+    });
+
+    observer.observe(videoElement);
+  }
+</script>
