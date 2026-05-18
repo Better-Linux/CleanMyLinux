@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Host
+Host: https://cleanmylinux.com
+
+# Sitemaps
+Sitemap: https://cleanmylinux.com/sitemap-index.xml
