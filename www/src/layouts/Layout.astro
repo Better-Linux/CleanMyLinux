@@ -1,5 +1,6 @@
 ---
 import "../globals.css";
+import Analytics from '@vercel/analytics/astro'
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
 ---
@@ -42,6 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 	</head>
+	<Analytics />
 	<body class="bg-[#080809] text-[#E4E4E7] min-h-screen relative overflow-x-hidden selection:bg-[#EA580C]/30 selection:text-[#FDBA74] antialiased font-sans">
 		
 		<!-- Ambient Warm Orange & Cyber Charcoal Lighting Glows -->
