@@ -1,0 +1,82 @@
+---
+import { GITHUB_URL } from "../config";
+---
+
+<footer class="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16 w-full">
+  
+  <!-- Glowing Bottom Ambient Light Spotlight -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-150 h-62.5 bg-[#EA580C]/5 rounded-full blur-[110px] pointer-events-none z-0"></div>
+
+  <!-- Custom Bevel Gradient Separator -->
+  <div class="w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent relative mb-12 z-10">
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-0.5 bg-linear-to-r from-[#EA580C] to-[#FDBA74]"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+    
+    <!-- Left Column: Branding and License Info -->
+    <div class="flex flex-col gap-4 max-w-md">
+      <div class="flex items-center gap-2">
+        <!-- Whitish Glassmorphic Logo Container -->
+        <div class="w-7 h-7 rounded-xl flex items-center justify-center">
+          <img src="/favicon.svg" alt="CleanMyLinux Logo" class="w-full h-full object-contain" />
+        </div>
+        <span class="font-display font-bold text-xl tracking-tight text-white flex items-center">
+          CleanMy<span class="text-[#EA580C]">Linux</span>
+        </span>
+      </div>
+      
+      <p class="text-white/40 text-[11px] font-medium leading-relaxed">
+        A beautifully tuned, safe system optimization utility designed exclusively for modern Linux desktops. Clean caches, reset app states, and check for package updates with complete peace of mind.
+      </p>
+      
+      <div class="text-[10px] text-white/30 font-semibold tracking-wide">
+        &copy; 2026 Better Linux. Distributed under the <a href={`${GITHUB_URL}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#FDBA74] underline underline-offset-2 transition-colors">MIT License</a>.
+      </div>
+    </div>
+
+    <!-- Right Column: Navigation and Interactive Actions -->
+    <div class="flex flex-row flex-wrap items-center gap-x-8 gap-y-4">
+      <div class="flex items-center gap-6 uppercase tracking-wider font-bold text-[10px]">
+        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="footer-link hover:text-white transition-colors duration-300 py-1.5 relative">GitHub</a>
+        <a href={`${GITHUB_URL}/releases`} target="_blank" rel="noopener noreferrer" class="footer-link hover:text-white transition-colors duration-300 py-1.5 relative">Releases</a>
+        <a href="/CODE_OF_CONDUCT.md" class="footer-link hover:text-white transition-colors duration-300 py-1.5 relative">Code of Conduct</a>
+        <a href="/SECURITY.md" class="footer-link hover:text-white transition-colors duration-300 py-1.5 relative">Security</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  /* Premium sliding orange underline hover animation for links */
+  .footer-link {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: linear-gradient(to right, #EA580C, #FDBA74);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .footer-link:hover::after {
+    width: 100%;
+  }
+</style>
+
+<script>
+  // Dynamic Scroll-to-Top trigger hook (Lenis handles smooth scroll interpolation)
+  const btn = document.getElementById('scroll-to-top');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+</script>
