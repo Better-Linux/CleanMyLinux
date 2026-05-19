@@ -9,4 +9,4 @@ Terminal=false
 Categories=System;Utility;Security;
 Keywords=clean;maintenance;performance;optimization;junk;system;apps;uninstall;
 StartupNotify=true
-StartupWMClass=cleanmylinux
+StartupWMClass=CleanMyLinux
