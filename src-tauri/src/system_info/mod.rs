@@ -46,7 +46,7 @@ mod stub {
     }
 
     #[tauri::command]
-    pub async fn uninstall_app(_app: tauri::AppHandle, _item: AppUninstallItem) -> Result<(), String> {
+    pub async fn uninstall_app(_app: tauri::AppHandle, _items: Vec<AppUninstallItem>) -> Result<(), String> {
         Ok(())
     }
 
