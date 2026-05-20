@@ -37,3 +37,5 @@ __pycache__/
 
 # Local Package Builds
 /build
+
+docs/marketing
