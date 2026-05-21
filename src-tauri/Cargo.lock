@@ -3,7 +3,7 @@
 version = 4
 
 [[package]]
-name = "CleanMyLinux"
+name = "cleanmylinux"
 version = "1.0.0-beta.1"
 dependencies = [
  "base64 0.22.1",
