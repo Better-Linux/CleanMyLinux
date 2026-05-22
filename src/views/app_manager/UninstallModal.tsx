@@ -30,7 +30,7 @@ export default function UninstallModal() {
             style={{
               background: "radial-gradient(ellipse at 50% 40%, rgba(239,68,68,0.12) 0%, rgba(5,7,15,0.85) 80%)",
             }}
-            onClick={() => uninstallPhase !== "progress" && onClose()}
+            onClick={() => onClose()}
           />
 
           {/* Modal Box */}
@@ -90,19 +90,6 @@ export default function UninstallModal() {
               </div>
 
               <AnimatePresence mode="wait">
-                {uninstallPhase === "system_alert" && (
-                  <motion.div
-                    key="system-alert"
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                  >
-                    <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight">System Application</h3>
-                    <p className="text-[#a1b0cb] text-[14.5px] leading-relaxed">
-                      <span className="font-bold text-white">{appToUninstall.name}</span> is essential for your Linux system. Uninstalling it might cause instability.
-                    </p>
-                  </motion.div>
-                )}
 
                 {uninstallPhase === "confirm" && (
                   <motion.div
@@ -164,7 +151,7 @@ export default function UninstallModal() {
                 borderTop: "1px solid rgba(255,255,255,0.06)",
               }}
             >
-              {uninstallPhase === "system_alert" || uninstallPhase === "error" ? (
+              {uninstallPhase === "error" ? (
                 <button onClick={onClose} className="glass-btn px-8 py-2.5 rounded-2xl text-[14px] font-bold">
                   Close
                 </button>

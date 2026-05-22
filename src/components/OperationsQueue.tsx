@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOperationsStore } from "../store/useOperationsStore";
 import { useConfig } from "../context/ConfigContext";
+import { useAppManagerStore } from "../views/app_manager/store";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const OP_LABELS: Record<string, string> = {
@@ -124,7 +125,16 @@ export function OperationsQueue() {
                       initial={{ opacity: 0, x: 20, scale: 0.95 }}
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                      className="rounded-[20px] p-3.5 flex flex-col gap-3 relative group"
+                      onClick={() => {
+                        if (op.op_type === "uninstall") {
+                          const appStore = useAppManagerStore.getState();
+                          if (appStore.appToUninstall?.name === op.app_name) {
+                            appStore.setUninstallModalOpen(true);
+                            setOpen(false);
+                          }
+                        }
+                      }}
+                      className="rounded-[20px] p-3.5 flex flex-col gap-3 relative group cursor-pointer hover:bg-white/5 transition-colors"
                       style={{
                         background: op.status === "error"
                           ? "rgba(239,68,68,0.04)"
