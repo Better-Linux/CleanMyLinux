@@ -27,8 +27,8 @@ interface AppManagerStore {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
 
-  activeFilter: "All" | "Flatpak" | "Snap" | "System" | "Unused";
-  setActiveFilter: (filter: "All" | "Flatpak" | "Snap" | "System" | "Unused") => void;
+  activeFilter: "All" | "Flatpak" | "Snap" | "Unused";
+  setActiveFilter: (filter: "All" | "Flatpak" | "Snap" | "Unused") => void;
 
   // Update flow
   modalPhase: "confirm" | "progress" | "done";
@@ -43,7 +43,7 @@ interface AppManagerStore {
   // Uninstall modal flow
   uninstallModalOpen: boolean;
   setUninstallModalOpen: (open: boolean) => void;
-  uninstallPhase: "confirm" | "progress" | "error" | "system_alert";
+  uninstallPhase: "confirm" | "progress" | "error";
   appToUninstall: AppInfo | null;
   uninstallError: string;
   triggerUninstall: (app: AppInfo) => void;
@@ -202,24 +202,9 @@ export const useAppManagerStore = create<AppManagerStore>((set, get) => ({
   uninstallError: "",
 
   triggerUninstall: (app) => {
-    const cats = app.categories?.toLowerCase() || "";
-    const isCoreOsApp =
-      app.source === "Native" &&
-      (cats.includes("settings") ||
-        cats.includes("system") ||
-        cats.includes("packagemanager") ||
-        cats.includes("desktopsettings") ||
-        cats.includes("core") ||
-        app.has_polkit ||
-        app.has_systemd ||
-        app.has_etc ||
-        !app.is_manual);
-
-    const phase = !app.is_user_app || isCoreOsApp ? "system_alert" : "confirm";
-
     set({
       appToUninstall: app,
-      uninstallPhase: phase,
+      uninstallPhase: "confirm",
       uninstallError: "",
       uninstallModalOpen: true,
     });

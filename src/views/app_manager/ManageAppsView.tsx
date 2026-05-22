@@ -59,7 +59,7 @@ export default function ManageAppsView() {
       </div>
 
       <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
-        {(["All", "Flatpak", "Snap", "System", "Unused"] as const).map((filter) => (
+        {(["All", "Flatpak", "Snap", "Unused"] as const).map((filter) => (
           <button
             key={filter}
             onClick={() => setActiveFilter(filter)}
@@ -81,10 +81,6 @@ export default function ManageAppsView() {
               if (activeFilter !== "All") {
                 if (activeFilter === "Unused") {
                   if (app.usage_score <= 0.5) return false;
-                } else if (activeFilter === "System") {
-                  if (app.source !== "Native") return false;
-                  // Native apps are considered "System" if they have core behavioral markers or were pre-installed
-                  return app.has_polkit || app.has_systemd || app.has_etc || !app.is_manual;
                 } else {
                   if (activeFilter.toLowerCase() !== app.source) return false;
                 }
@@ -131,12 +127,6 @@ export default function ManageAppsView() {
                         <span className="text-white/40 text-[12px] flex items-center gap-1 max-w-[150px] truncate">
                           • {app.vendor}
                         </span>
-                      )}
-                      {(app.has_polkit || app.has_systemd || app.has_etc) && (
-                        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#14b4ff]/10 border border-[#14b4ff]/20 ml-1">
-                           <span className="w-1.5 h-1.5 rounded-full bg-[#14b4ff] shadow-[0_0_8px_rgba(20,180,255,0.6)] animate-pulse" />
-                           <span className="text-[9px] font-bold text-[#14b4ff] uppercase tracking-wider">Protected System App</span>
-                        </div>
                       )}
                       {app.usage_score > 0.0 && (
                         <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide ${
