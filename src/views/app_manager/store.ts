@@ -166,8 +166,26 @@ export const useAppManagerStore = create<AppManagerStore>((set, get) => ({
     try {
       const targetUpdates = updates.filter((u) => selectedPackageIds.includes(u.package_id));
       await invoke("run_app_updates", { updates: targetUpdates });
+      
+      set((state) => {
+        const hasErrors = targetUpdates.some(t => {
+          const st = state.appStatuses.find(a => a.name === t.name);
+          return st?.status === "error";
+        });
+
+        return {
+          // If there were errors, stay on the progress view so they can read the error badges
+          modalPhase: hasErrors ? "progress" : "done",
+          // Only remove apps that actually completed successfully
+          updates: state.updates.filter((u) => {
+            const st = state.appStatuses.find(a => a.name === u.name);
+            return st?.status !== "done";
+          }),
+          selectedPackageIds: [],
+        };
+      });
     } catch {
-      // Preserve status
+      set({ modalPhase: "done" });
     } finally {
       unlisten();
       set((state) => {

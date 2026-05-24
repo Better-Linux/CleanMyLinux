@@ -35,7 +35,7 @@ pub async fn uninstall_app(
 
     // STEP 1: Process Native Packages via single unified console removal
     if !native_apps.is_empty() {
-        let op_id = "batch-uninstall-native".to_string();
+        let op_id = format!("batch-uninstall-native-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
         let first_app = &native_apps[0];
         let base_title = if native_apps.len() == 1 {
             first_app.name.clone()
@@ -155,7 +155,7 @@ pub async fn uninstall_app(
     if !flatpak_apps.is_empty() {
         let app_clone = app_handle.clone();
         join_handles.push(tauri::async_runtime::spawn(async move {
-            let op_id = "batch-uninstall-flatpak".to_string();
+            let op_id = format!("batch-uninstall-flatpak-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
             let first_app = &flatpak_apps[0];
             let base_title = if flatpak_apps.len() == 1 {
                 first_app.name.clone()
@@ -256,7 +256,7 @@ pub async fn uninstall_app(
     if !snap_apps.is_empty() {
         let app_clone = app_handle.clone();
         join_handles.push(tauri::async_runtime::spawn(async move {
-            let op_id = "batch-uninstall-snap".to_string();
+            let op_id = format!("batch-uninstall-snap-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
             let first_app = &snap_apps[0];
             let base_title = if snap_apps.len() == 1 {
                 first_app.name.clone()

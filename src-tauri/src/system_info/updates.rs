@@ -296,7 +296,7 @@ pub fn check_flatpak_updates(target_apps: &[String]) -> Vec<AppUpdate> {
         .filter_map(|line| {
             let parts: Vec<&str> = line.split('\t').collect();
 
-            if parts.len() < 3 {
+            if parts.len() < 2 {
                 return None;
             }
 
@@ -309,9 +309,11 @@ pub fn check_flatpak_updates(target_apps: &[String]) -> Vec<AppUpdate> {
             }
 
             let name = parts[0].trim().to_string();
-            let new_version = parts[2].trim().to_string();
-
             let current_version = get_flatpak_app_version(&app_id);
+            let mut new_version = parts.get(2).unwrap_or(&"").trim().to_string();
+            if new_version.is_empty() {
+                new_version = current_version.clone();
+            }
 
             Some(AppUpdate {
                 name,
@@ -431,7 +433,7 @@ pub fn check_native_updates(target_apps: &[String]) -> HashMap<String, String> {
     }
 
     // Try Fedora/RHEL (dnf check-update)
-    if let Ok(output) = Command::new("dnf").args(["check-update"]).output() {
+    if let Ok(output) = Command::new("dnf").args(["check-update", "--refresh"]).output() {
         let stdout = String::from_utf8_lossy(&output.stdout);
         available.extend(check_dnf_updates(&stdout, target_apps));
     }

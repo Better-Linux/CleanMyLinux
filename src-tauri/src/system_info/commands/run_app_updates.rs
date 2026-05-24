@@ -37,7 +37,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
 
     // STEP 1: Process Native Packages in a single unified TTY-style batch console invocation
     if !native_updates.is_empty() {
-        let op_id = "batch-update-native".to_string();
+        let op_id = format!("batch-update-native-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
         let first_app = &native_updates[0];
         let base_title = "Updating System Packages".to_string();
         let target_apps_clone = native_updates.clone();
@@ -58,6 +58,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
             } else if let Ok(st2) = Command::new("dnf").arg("--version").output() {
                 if st2.status.success() {
                     base_args.push("upgrade".to_string());
+                    base_args.push("--refresh".to_string());
                     base_args.push("-y".to_string());
                     base_args.extend(pkg_ids);
                     "dnf"
@@ -76,6 +77,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
         } else if let Ok(st2) = Command::new("dnf").arg("--version").output() {
             if st2.status.success() {
                 base_args.push("upgrade".to_string());
+                base_args.push("--refresh".to_string());
                 base_args.push("-y".to_string());
                 base_args.extend(pkg_ids);
                 "dnf"
@@ -134,7 +136,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
         let app_clone = app.clone();
         let app_emitter = app.clone();
         join_handles.push(tauri::async_runtime::spawn(async move {
-            let op_id = "batch-update-flatpak".to_string();
+            let op_id = format!("batch-update-flatpak-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
             let base_title = "Updating Flatpak Apps".to_string();
             let first_icon = flatpak_updates[0].icon.clone();
             let target_apps_clone = flatpak_updates.clone();
@@ -145,7 +147,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
             }
 
             let stream_res = tauri::async_runtime::spawn_blocking(move || {
-                let mut base_args = vec!["update".to_string(), "-y".to_string(), "--noninteractive".to_string()];
+                let mut base_args = vec!["update".to_string(), "-y".to_string()];
                 base_args.extend(pkg_ids);
                 let arg_refs: Vec<&str> = base_args.iter().map(|s| s.as_str()).collect();
 
@@ -157,7 +159,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
                     "update",
                     "flatpak",
                     &arg_refs,
-                    true,
+                    false,
                     first_icon,
                     Some(target_apps_clone),
                 )
@@ -189,7 +191,7 @@ pub async fn run_app_updates(app: tauri::AppHandle, updates: Vec<AppUpdate>) -> 
         let app_clone = app.clone();
         let app_emitter = app.clone();
         join_handles.push(tauri::async_runtime::spawn(async move {
-            let op_id = "batch-update-snap".to_string();
+            let op_id = format!("batch-update-snap-{}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis());
             let base_title = "Updating Snap Apps".to_string();
             let first_icon = snap_updates[0].icon.clone();
             let target_apps_clone = snap_updates.clone();
