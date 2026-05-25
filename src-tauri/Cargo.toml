@@ -1,6 +1,6 @@
 [package]
 name = "cleanmylinux"
-version = "1.0.0-beta.1"
+version = "1.0.0-beta.2"
 description = "A premium, high performance system maintenance and optimization tool for Linux desktops."
 authors = ["Better Linux"]
 edition = "2021"
